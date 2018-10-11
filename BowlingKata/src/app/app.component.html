@@ -3,6 +3,6 @@
     Welcome to Bowling Kata!
   </h1>
 </div>
-<input #number type="number" value="0" (click)="NextThrow()">
-<button type="button">Wurf eingeben</button>
+<input #number type="number" value="0" >
+<button type="button" (click)="NextThrow(number.value)">Wurf eingeben</button>
 

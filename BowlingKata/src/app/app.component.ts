@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { BowlingInputService } from './bowling-input.service';
 
@@ -8,14 +8,12 @@ import { BowlingInputService } from './bowling-input.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  @ViewChild('#number')element: HTMLElement;
   title = 'app';
   constructor(private bowlingInputService: BowlingInputService) {
 
   }
 
-  public NextThrow() {
-    const number = +this.element.nodeValue;
-    this.bowlingInputService.NextThrow(number);
+  public NextThrow(pinCount: string) {
+    this.bowlingInputService.NextThrow(+pinCount);
   }
 }

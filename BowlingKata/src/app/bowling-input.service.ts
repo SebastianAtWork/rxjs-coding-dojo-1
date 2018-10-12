@@ -1,16 +1,24 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+import { IFrame } from './IFrame';
+import { IRoll } from './IRoll';
+
 @Injectable({
   providedIn: 'root'
 })
 export class BowlingInputService {
-  public Throws: Subject<number>;
+  public Rolls: Subject<IRoll>;
+  public Frames: Subject<IFrame>;
   constructor() {
-    this.Throws = new Subject<number>();
+    this.Rolls = new Subject<IRoll>();
+    this.Frames = new Subject<IFrame>();
   }
-  NextThrow(number: number): any {
-    this.Throws.next(number);
+  NextRoll(number: number): any {
+    this.Rolls.next(<IRoll>{PinCount: number});
+  }
+  NextFrame(rolls: IRoll[], sum: number): any {
+    this.Frames.next(<IFrame>{Rolls: rolls, Sum: sum});
   }
 
 }

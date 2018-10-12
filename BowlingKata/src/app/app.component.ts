@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { BowlingInputService } from './bowling-input.service';
-import { IFrame } from './IFrame';
+import { Frame } from './Frame';
 import { IRoll } from './IRoll';
 
 @Component({
@@ -16,10 +16,10 @@ export class AppComponent implements OnDestroy {
   _subscription1: Subscription;
   _subscription2: Subscription;
   _rolls: Array<IRoll>;
-  _frames: Array<IFrame>;
+  _frames: Array<Frame>;
   constructor(private bowlingInputService: BowlingInputService) {
     this._rolls = new Array<IRoll>();
-    this._frames = new Array<IFrame>();
+    this._frames = new Array<Frame>();
     this._subscription1 = this.bowlingInputService.Rolls.subscribe(pinCount => this.onRoll(pinCount));
     this._subscription2 = this.bowlingInputService.Frames.subscribe(frame => this.onFrame(frame));
   }
@@ -36,7 +36,7 @@ export class AppComponent implements OnDestroy {
     }
   }
 
-  public onFrame(frame: IFrame) {
+  public onFrame(frame: Frame) {
     this._frames.push(frame);
   }
   ngOnDestroy(): void {
@@ -49,7 +49,7 @@ export class AppComponent implements OnDestroy {
     return (lastRoll.PinCount === 10 || rolls.length === 2);
   }
 
-  public FrameToString(frame: IFrame){
+  public FrameToString(frame: Frame) {
     let representation = '(';
     frame.Rolls.forEach(roll => {
       representation += roll.PinCount + ',';

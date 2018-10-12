@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { IFrame } from './IFrame';
+import { Frame } from './Frame';
 import { IRoll } from './IRoll';
 
 @Injectable({
@@ -9,16 +9,17 @@ import { IRoll } from './IRoll';
 })
 export class BowlingInputService {
   public Rolls: Subject<IRoll>;
-  public Frames: Subject<IFrame>;
+  public Frames: Subject<Frame>;
   constructor() {
     this.Rolls = new Subject<IRoll>();
-    this.Frames = new Subject<IFrame>();
+    this.Frames = new Subject<Frame>();
+    this.Frames.subscribe()
   }
   NextRoll(number: number): any {
     this.Rolls.next(<IRoll>{PinCount: number});
   }
   NextFrame(rolls: IRoll[], sum: number): any {
-    this.Frames.next(<IFrame>{Rolls: rolls, Sum: sum});
+    this.Frames.next(<Frame>{Rolls: rolls, Sum: sum});
   }
-
+// Todo: Frame behält eine Subscription auf die futurerolls
 }

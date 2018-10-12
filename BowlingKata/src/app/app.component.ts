@@ -16,8 +16,10 @@ export class AppComponent implements OnDestroy {
   _subscription1: Subscription;
   _subscription2: Subscription;
   _rolls: Array<IRoll>;
+  _frames: Array<IFrame>;
   constructor(private bowlingInputService: BowlingInputService) {
     this._rolls = new Array<IRoll>();
+    this._frames = new Array<IFrame>();
     this._subscription1 = this.bowlingInputService.Rolls.subscribe(pinCount => this.onRoll(pinCount));
     this._subscription2 = this.bowlingInputService.Frames.subscribe(frame => this.onFrame(frame));
   }
@@ -34,8 +36,8 @@ export class AppComponent implements OnDestroy {
     }
   }
 
-  public onFrame(frame: IFrame){
-
+  public onFrame(frame: IFrame) {
+    this._frames.push(frame);
   }
   ngOnDestroy(): void {
     this._subscription1.unsubscribe();
@@ -45,5 +47,14 @@ export class AppComponent implements OnDestroy {
   public IsFrameOver(rolls: IRoll[]) {
     const lastRoll = rolls[rolls.length - 1];
     return (lastRoll.PinCount === 10 || rolls.length === 2);
+  }
+
+  public FrameToString(frame: IFrame){
+    let representation = '(';
+    frame.Rolls.forEach(roll => {
+      representation += roll.PinCount + ',';
+    });
+    representation += ') Rundensumme: ' + frame.Sum;
+    return representation;
   }
 }

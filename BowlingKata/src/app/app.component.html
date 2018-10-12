@@ -5,4 +5,7 @@
 </div>
 <input #number type="number" value="0" >
 <button type="button" (click)="NextThrow(number.value)">Wurf eingeben</button>
+<div *ngFor="let roll of _rolls">
+  Wurf: {{roll.PinCount}}
+</div>
 
